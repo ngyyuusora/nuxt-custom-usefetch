@@ -1,5 +1,5 @@
 module.exports = {
-  semi: false,
+  semi: true,
   vueIndentScriptAndStyle: true,
   singleQuote: true,
   trailingComma: 'all',
