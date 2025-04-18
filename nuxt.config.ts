@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
     '@nuxt/eslint',
     '@tdesign-vue-next/nuxt',
+    'nuxt-svgo',
   ],
 
   build: {
