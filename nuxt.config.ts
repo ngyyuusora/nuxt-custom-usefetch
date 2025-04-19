@@ -1,5 +1,5 @@
-import Components from 'unplugin-vue-components/vite'
-import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite';
+import AutoImport from 'unplugin-auto-import/vite';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -41,6 +41,17 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: { brotli: true, gzip: true },
+    // affect both csr&ssr, DO NOT USE IN PRODUCTION
+    routeRules: {
+      // '/proxy/example': { proxy: 'http://39.98.58.238:8594' },
+      '/proxy/api/**': { proxy: `${process.env.VITE_API_URL}/**` },
+    },
+    // affect only csr
+    // devProxy: {
+    //   '/proxy/api': {
+    //     target: process.env.VITE_API_URL,
+    //   },
+    // },
   },
 
   vite: {
@@ -64,11 +75,16 @@ export default defineNuxtConfig({
       }),
     ],
   },
-
+  runtimeConfig: {
+    public: {
+      VITE_API_URL: process.env.VITE_API_URL,
+      VITE_REQUEST_URL: process.env.VITE_REQUEST_URL,
+    },
+  },
   future: {
     // 启用 Nuxt 4 功能前瞻
     compatibilityVersion: 4,
   },
 
   compatibilityDate: '2024-07-19',
-})
+});
