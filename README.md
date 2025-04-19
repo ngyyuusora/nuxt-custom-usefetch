@@ -1,11 +1,6 @@
-# TDesign Vue + Nuxt Starter
+# nuxt-custom-usefetch
 
-> [!NOTE] 
-> Nuxt 4 即将发布，此模板的维护重心将会转向 Nuxt 4，请留意官方的 [Nuxt 3 -> 4 迁移说明](https://nuxt.com/docs/getting-started/upgrade#migrating-to-nuxt-4)。Nuxt 3 版本的模板将会移动到 [`nuxt3`](https://github.com/AnotiaWang/tdesign-vue-nuxt-starter/tree/nuxt3) 分支。
-
-![](https://s21.ax1x.com/2024/06/15/pkwSjC6.png)
-
-本模板仓库使用 [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) (Vue 3) 和 [TDesign Vue Next](https://tdesign.tencent.com/vue-next) 组件库。
+本仓库使用 [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) (Vue 3) 和 [TDesign Vue Next](https://tdesign.tencent.com/vue-next) 组件库。
 
 除此之外，还使用了以下依赖：
 
@@ -14,15 +9,7 @@
 - ESLint + Prettier: 代码风格检查 + 美化
 - [unplugin-auto-import 和 unplugin-vue-components](https://unplugin.unjs.io): 自动导入 TDesign Vue Next 的组件以实现 [tree shaking](https://en.wikipedia.org/wiki/Tree_shaking)
 - pnpm v9
-
-## 快速使用本模板
-
-```bash
-# 使用 main 分支
-npx -y nuxi init -t gh:AnotiaWang/tdesign-vue-nuxt-starter <项目名>
-# 如要继续使用 Nuxt 3 版本，请使用 `nuxt3` 分支
-npx -y nuxi init -t gh:AnotiaWang/tdesign-vue-nuxt-starter#nuxt3 <项目名>
-```
+- [nuxt-svgo](https://github.com/cpsoinos/nuxt-svgo)：快速将svg直接导入为可定制的组件
 
 ## 目录结构
 
