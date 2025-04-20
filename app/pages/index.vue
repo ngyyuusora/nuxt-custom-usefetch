@@ -43,26 +43,26 @@
 </template>
 
 <script setup lang="ts">
-  const theme = useThemeStore()
+  const theme = useThemeStore();
 
-  const tags = ref(['Vue', 'React', 'Angular'])
-  const isLoading = ref(true)
-  const alertTheme = ref<'success' | 'warning' | 'error' | 'info'>('success')
-  let date: Date
+  const tags = ref(['Vue', 'React', 'Angular']);
+  const isLoading = ref(true);
+  const alertTheme = ref<'success' | 'warning' | 'error' | 'info'>('success');
+  let date: Date;
 
   onMounted(() => {
-    date = new Date()
+    date = new Date();
     setInterval(() => {
-      isLoading.value = !isLoading.value
+      isLoading.value = !isLoading.value;
       if (alertTheme.value === 'success') {
-        alertTheme.value = 'warning'
+        alertTheme.value = 'warning';
       } else if (alertTheme.value === 'warning') {
-        alertTheme.value = 'error'
+        alertTheme.value = 'error';
       } else if (alertTheme.value === 'error') {
-        alertTheme.value = 'info'
+        alertTheme.value = 'info';
       } else {
-        alertTheme.value = 'success'
+        alertTheme.value = 'success';
       }
-    }, 2000)
-  })
+    }, 2000);
+  });
 </script>

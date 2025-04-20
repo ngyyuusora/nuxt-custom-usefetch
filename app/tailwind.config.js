@@ -1,5 +1,5 @@
 // tailwind config file
-import plugin from 'tailwindcss/plugin'
+import plugin from 'tailwindcss/plugin';
 
 export default {
   mode: 'jit',
@@ -34,7 +34,7 @@ export default {
             display: 'none',
           },
         },
-      })
+      });
     }),
   ],
   content: [
@@ -43,4 +43,4 @@ export default {
     './layouts/**/*.vue',
     './pages/**/*.vue',
   ],
-}
+};
