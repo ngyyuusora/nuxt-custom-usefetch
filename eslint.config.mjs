@@ -1,7 +1,14 @@
 // @ts-check
-import withNuxt from './.nuxt/eslint.config.mjs'
+import withNuxt from './.nuxt/eslint.config.mjs';
 // @ts-ignore
-import configPrettier from 'eslint-config-prettier'
-import pluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import configPrettier from 'eslint-config-prettier';
+import pluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
-export default withNuxt(pluginPrettierRecommended, configPrettier)
+const configExt = {
+  rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
+};
+
+// @ts-ignore
+export default withNuxt(pluginPrettierRecommended, configPrettier, configExt);
