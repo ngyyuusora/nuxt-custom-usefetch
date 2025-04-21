@@ -1,5 +1,96 @@
 # nuxt-custom-usefetch
 
+## Setup
+
+```bash
+pnpm install
+```
+
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+pnpm run start-mock-server # mock server default using local port 39000
+pnpm dev
+```
+
+## Usage
+
+### Crate a request instance
+
+```javascript
+export const requestPublic = createFetch({
+  requestOptions: {
+    urlPrefix: '/api/public',
+  },
+});
+```
+
+### GET
+
+```javascript
+requestPublic.get({
+  url: '/weather-forecast',
+});
+```
+
+```javascript
+requestPublic.get({
+  url: '/weather-forecast',
+  params: {
+    id: 1,
+  },
+});
+```
+
+### POST
+
+```javascript
+requestPublic.post({
+  url: '/weather-forecast',
+  data: {
+    summary: 'Cloudy',
+  },
+});
+```
+
+### DELETE
+
+```javascript
+requestPublic.post({
+  url: '/weather-forecast',
+  params: {
+    id: 1,
+  },
+});
+```
+
+## Notice
+
+### Concurrency usage
+
+#### DO NOT USE (nuxt fatal)
+
+```javascript
+await requestPublic.get(); // url1
+await requestPublic.get(); // url2
+```
+
+#### Please use allSettled
+
+```javascript
+const results = await Promise.allSettled([
+  requestPublic.get(); // url1
+  requestPublic.get(); // url2
+);
+const fulfilledResults = results.filter(
+  (result) => result.status === 'fulfilled'
+) as PromiseFulfilledResult<any>[];
+```
+
+## Summary
+
 本仓库使用 [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) (Vue 3) 和 [TDesign Vue Next](https://tdesign.tencent.com/vue-next) 组件库。
 
 除此之外，还使用了以下依赖：
@@ -13,7 +104,7 @@
 
 ## 目录结构
 
-```
+```plaintext
 .
 ├── app             # 前端相关
 │   ├── components  # 全局组件
@@ -36,7 +127,7 @@ TDesign 支持 [自定义主题](https://tdesign.tencent.com/vue-next/custom-the
 3. 在 `hooks/useTheme.ts` 中，修改:
 
 ```ts
-type Theme = 'default' | 'test' // 添加/修改成你自己的主题名
+type Theme = 'default' | 'test'; // 添加/修改成你自己的主题名
 ```
 
 如有需要，可以配置 defineStore 部分中的 `theme` 变量为你想要的初始主题，默认为 `default`。
@@ -44,35 +135,7 @@ type Theme = 'default' | 'test' // 添加/修改成你自己的主题名
 然后就可以在代码中调用了：
 
 ```ts
-const theme = useThemeStore()
+const theme = useThemeStore();
 
-theme.setTheme('default')
-```
-
-## Setup
-
-```bash
-pnpm install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-pnpm dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-pnpm build
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
+theme.setTheme('default');
 ```
