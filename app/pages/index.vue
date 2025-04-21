@@ -1,23 +1,6 @@
 <template>
   <div class="flex flex-col items-center px-4 py-10 gap-y-8 h-full">
-    <h1 class="text-[26px]">Nuxt & TDesign Vue Next</h1>
-    <div class="space-x-2">
-      <TButton
-        ghost
-        @click="
-          $colorMode.preference =
-            $colorMode.preference === 'light' ? 'dark' : 'light'
-        "
-      >
-        <template #icon>
-          <TIcon
-            class="mr-1"
-            :name="$colorMode.preference === 'light' ? 'heart' : 'heart-filled'"
-          />
-          当前主题：{{ $colorMode.preference === 'light' ? 'Light' : 'Dark' }}
-        </template>
-      </TButton>
-    </div>
+    <h1 class="text-[26px]">Nuxt & TDesign Vue Next & Custom useFetch</h1>
     <div class="flex items-center gap-x-4">
       <TButton @click="theme.setTheme('default')">默认主题</TButton>
       <TButton @click="theme.setTheme('test')">主题 1</TButton>
@@ -39,6 +22,8 @@
       </TTagInput>
     </div>
     <TAlert :theme="alertTheme" close>{{ date }}</TAlert>
+    <div class="form-basic-container-title">缓存示例</div>
+    <cache-demo />
   </div>
 </template>
 
@@ -66,3 +51,15 @@
     }, 2000);
   });
 </script>
+<style scoped lang="less">
+  .form-basic-container-title {
+    font: var(--td-font-title-large);
+    font-weight: 400;
+    color: var(--td-text-color-primary);
+    margin: var(--td-comp-margin-xxl) 0 var(--td-comp-margin-xl) 0;
+  }
+
+  .form-title-gap {
+    margin: calc(var(--td-comp-margin-xxl) * 2) 0 var(--td-comp-margin-xl) 0;
+  }
+</style>
