@@ -141,7 +141,7 @@ export function createFetch(opt?: Partial<CreateFetchOptions>): VUseFetch {
       },
       timeout: 5000,
       // using $fetch(ofetch) outside ssr hydrating
-      alwaysUseFetch: true,
+      alwaysUseFetch: false,
       // default value is false to suppress unnecessary requests. If not alwaysUseFetch, set this to true when modifying remote data.
       // (prefer set at each request call passthrough, otherwise may causes hydration mismatch)
       hashParamsToCache: false,
@@ -158,7 +158,6 @@ export function createFetch(opt?: Partial<CreateFetchOptions>): VUseFetch {
 // #region instances of request
 export const requestPublic = createFetch({
   requestOptions: {
-    isTransformResponse: false,
     urlPrefix: '/api/public',
   },
 });
