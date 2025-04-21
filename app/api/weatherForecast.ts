@@ -4,7 +4,7 @@ const Api = {
   '/': '/weather-forecast',
 };
 
-export const getWeatherForecast = async () => {
+export const apiGetWeatherForecast = async () => {
   return requestPublic.get<WeatherForecastResponse>({
     url: Api['/'],
   });
