@@ -7,7 +7,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "start-mock-server": "pnpm run --prefix mock-server start"
   },
   "devDependencies": {
     "@tdesign-vue-next/nuxt": "^0.1.5",
