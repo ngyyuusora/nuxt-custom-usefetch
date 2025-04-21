@@ -79,6 +79,7 @@ export default defineNuxtConfig({
     public: {
       VITE_API_URL: process.env.VITE_API_URL,
       VITE_REQUEST_URL: process.env.VITE_REQUEST_URL,
+      VITE_MOCK_API: process.env.VITE_MOCK_API,
     },
   },
   future: {
