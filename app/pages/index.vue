@@ -6,10 +6,15 @@
       <TButton @click="theme.setTheme('test')">主题 1</TButton>
     </div>
     <div class="grid grid-cols-2 sm:flex flex-row items-center gap-2">
-      <TButton>按钮示例</TButton>
+      <TButton @click="showError('error')">go err</TButton>
       <TButton theme="warning" loading>按钮示例</TButton>
       <TButton theme="danger" disabled>按钮示例</TButton>
-      <TButton theme="success" variant="outline">按钮示例</TButton>
+      <TButton
+        theme="success"
+        variant="outline"
+        @click="showError({ statusCode: 502, message: 'wifi' })"
+        >go net err</TButton
+      >
     </div>
 
     <div class="flex flex-col sm:flex-row items-center gap-4">
@@ -24,6 +29,8 @@
     <TAlert :theme="alertTheme" close>{{ date }}</TAlert>
     <div class="form-basic-container-title">缓存示例</div>
     <cache-demo />
+    <div class="form-basic-container-title">多数据示例</div>
+    <concurrency-demo />
   </div>
 </template>
 
@@ -56,10 +63,10 @@
     font: var(--td-font-title-large);
     font-weight: 400;
     color: var(--td-text-color-primary);
-    margin: var(--td-comp-margin-xxl) 0 var(--td-comp-margin-xl) 0;
+    // margin: var(--td-comp-margin-xxl) 0 var(--td-comp-margin-xl) 0;
   }
 
-  .form-title-gap {
-    margin: calc(var(--td-comp-margin-xxl) * 2) 0 var(--td-comp-margin-xl) 0;
-  }
+  // .form-title-gap {
+  //   margin: calc(var(--td-comp-margin-xxl) * 2) 0 var(--td-comp-margin-xl) 0;
+  // }
 </style>
