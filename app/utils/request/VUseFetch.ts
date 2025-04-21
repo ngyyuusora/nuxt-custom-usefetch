@@ -126,6 +126,7 @@ export class VUseFetch {
       url = `${baseURL}${url}`;
     }
 
+    const originUrl = url;
     const params: Nullable<Recordable> = config.params || {};
     const data = config.data || false;
 
@@ -177,10 +178,9 @@ export class VUseFetch {
     fetchOptions.body = data || undefined;
 
     // Support params stringify
-    let finalUrl = url;
     const stringifiedParams = this.supportParamsStringify(config);
     if (stringifiedParams) {
-      finalUrl = this.appendStringQueryParams(url, stringifiedParams);
+      url = this.appendStringQueryParams(url, stringifiedParams);
     }
 
     fetchOptions = {
@@ -194,13 +194,13 @@ export class VUseFetch {
     // hashParamsToCache ? with stringified params
     fetchOptions.key = hash([
       'request',
-      requestOptions.hashParamsToCache ? finalUrl : url,
+      requestOptions.hashParamsToCache ? url : originUrl,
       JSON.stringify(requestOptions),
     ]);
 
     // hash before joinTime(_t there using for avoid gateway cache)
     if (finalJoinTimeFlag) {
-      finalUrl = this.appendQueryParams(finalUrl, {
+      url = this.appendQueryParams(url, {
         _t: Date.now().toString(),
       });
     }
@@ -211,9 +211,9 @@ export class VUseFetch {
     //   console.warn('instance status', instance?.uid, instance?.type.__name, instance?.data, instance?.props, instance?.isMounted);
     // }
     if (requestOptions?.alwaysUseFetch) {
-      return useFetch<T>(finalUrl, fetchOptions as any);
+      return useFetch<T>(url, fetchOptions as any);
     }
-    return this.executeFetch<T>(finalUrl, fetchOptions, nuxtApp, instance);
+    return this.executeFetch<T>(url, fetchOptions, nuxtApp, instance);
   }
 
   private appendStringQueryParams(url: string, params: string) {
