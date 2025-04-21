@@ -142,9 +142,15 @@ export function createFetch(opt?: Partial<CreateFetchOptions>): VUseFetch {
       timeout: 5000,
       // using $fetch(ofetch) outside ssr hydrating
       alwaysUseFetch: false,
-      // default value is false to suppress unnecessary requests. If not alwaysUseFetch, set this to true when modifying remote data.
+      // when enabled, request with same params will use cache.
+      // when disabled, all requests with same url even different params still use same cache.
+      hashParamsToCache: true,
+      // default value is true to suppress unnecessary requests. if useNuxtDataAllMethod, set this to false when modifying remote data.
       // (prefer set at each request call passthrough, otherwise may causes hydration mismatch)
-      hashParamsToCache: false,
+      useNuxtData: true,
+      // default only using cache when GET
+      // warning: may cause fatal result if operation not idempotence.
+      useNuxtDataAllMethod: false,
     },
     headers: {
       'Content-Type': ContentTypeEnum.JSON,

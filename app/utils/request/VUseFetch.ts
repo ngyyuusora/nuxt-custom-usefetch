@@ -211,10 +211,13 @@ export class VUseFetch {
     //   console.warn('isHydrating', nuxtApp.isHydrating);
     //   console.warn('instance status', instance?.uid, instance?.type.__name, instance?.data, instance?.props, instance?.isMounted);
     // }
-    if (requestOptions?.alwaysUseFetch) {
-      return useFetch<T>(url, fetchOptions as any);
-    }
-    return this.executeFetch<T>(url, fetchOptions, nuxtApp, instance);
+    return this.executeFetch<T>(
+      url,
+      fetchOptions,
+      requestOptions,
+      nuxtApp,
+      instance,
+    );
   }
 
   private appendStringQueryParams(url: string, params: string) {
@@ -255,6 +258,7 @@ export class VUseFetch {
   private async executeFetch<T>(
     url: string,
     fetchOptions: UseFetchOptions<T>,
+    requestOptions: RequestOptions,
     nuxtApp: NuxtApp,
     instance: ComponentInternalInstance | null,
   ) {
@@ -263,6 +267,18 @@ export class VUseFetch {
       !nuxtApp.isHydrating &&
       (!instance || instance?.isMounted)
     ) {
+      const isUseNuxtData =
+        fetchOptions.key &&
+        requestOptions.useNuxtData &&
+        (requestOptions.useNuxtDataAllMethod ||
+          fetchOptions.method?.toString().toUpperCase() === 'GET');
+      if (isUseNuxtData) {
+        const cache = useNuxtData(fetchOptions.key as string);
+        if (cache.data.value) return cache;
+      }
+      if (requestOptions.alwaysUseFetch) {
+        return useFetch<T>(url, fetchOptions as any);
+      }
       try {
         const response = await $fetch<T>(url, fetchOptions as any);
         return this.wrapFetchResponse(response, nuxtApp) as AsyncData<

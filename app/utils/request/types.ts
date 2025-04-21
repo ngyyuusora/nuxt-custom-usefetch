@@ -27,6 +27,8 @@ export interface RequestOptions {
   timeout?: number;
   alwaysUseFetch?: boolean;
   hashParamsToCache?: boolean;
+  useNuxtData?: boolean;
+  useNuxtDataAllMethod?: boolean;
 }
 // #endregion RequestOptions
 // #region ApiResponse Custom response result
