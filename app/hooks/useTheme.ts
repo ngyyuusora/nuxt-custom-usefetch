@@ -15,16 +15,24 @@ export const useThemeStore = defineStore('theme', () => {
     if (storageValue) theme.value = storageValue as Theme;
     const styleElement = document.createElement('link');
 
-    watch(theme, () => {
-      localStorage.setItem(themeStorageKey, theme.value);
+    const updateTheme = (theme: string) => {
+      localStorage.setItem(themeStorageKey, theme);
       styleElement.type = 'text/css';
       styleElement.rel = 'stylesheet';
-      styleElement.href = `/styles/tdesign-theme-${theme.value}.css?t=${Date.now()}`;
+      styleElement.href = `/styles/tdesign-theme-${theme}.css?t=${Date.now()}`;
       if (styleElement.parentElement === document.head) {
         document.head.removeChild(styleElement);
       }
       document.head.appendChild(styleElement);
-    });
+    };
+    updateTheme(theme.value);
+
+    watch(
+      () => theme.value,
+      (val) => {
+        updateTheme(val);
+      },
+    );
   });
 
   return { theme, setTheme };
