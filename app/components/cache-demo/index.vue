@@ -88,8 +88,8 @@
 <style lang="less" scoped>
   .cache-usage-container {
     border-radius: 6px;
-    border: 1px solid var(--td-component-border);
-    overflow: auto;
+    // border: 1px solid var(--td-component-border);
+    overflow: hidden;
     height: 480px;
     background: var(--td-bg-color-container);
     display: flex;
