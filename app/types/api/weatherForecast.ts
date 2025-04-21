@@ -3,6 +3,7 @@ export interface WeatherForecast {
   temperatureC: number;
   temperatureF: number;
   summary: string;
+  icon: string;
 }
 
 export type WeatherForecastResponse = WeatherForecast[];

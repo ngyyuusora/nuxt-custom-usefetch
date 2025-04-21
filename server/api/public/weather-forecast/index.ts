@@ -5,6 +5,7 @@ interface weatherForecastDto {
   temperatureC: number;
   temperatureF: number;
   summary: string;
+  icon: string;
 }
 
 export default defineEventHandler(async (event) => {
@@ -21,6 +22,7 @@ export default defineEventHandler(async (event) => {
       temperatureC: item.temperatureC,
       temperatureF: item.temperatureF,
       summary: item.summary,
+      icon: item.icon,
     })),
   );
 });
