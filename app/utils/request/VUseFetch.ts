@@ -1,6 +1,7 @@
 import { useFetch } from 'nuxt/app';
 import merge from 'lodash/merge';
-import type { NuxtApp, UseFetchOptions } from 'nuxt/app';
+import type { AsyncData, NuxtApp, UseFetchOptions } from 'nuxt/app';
+import type { FetchError } from 'ofetch';
 import isString from 'lodash/isString';
 import { hash } from 'ohash';
 import { formatRequestDate, setObjToUrlParams } from './util';
@@ -234,19 +235,21 @@ export class VUseFetch {
   }
 
   private wrapFetchResponse<T>(response: T, nuxtApp: NuxtApp) {
+    const transformedResponse = this.options.transform?.transformResponseHook
+      ? this.options.transform.transformResponseHook(
+          response,
+          this.options.requestOptions ?? {},
+          nuxtApp,
+        )
+      : response;
     return {
-      data: shallowRef(
-        this.options.transform?.transformResponseHook
-          ? this.options.transform.transformResponseHook(
-              response,
-              this.options.requestOptions ?? {},
-              nuxtApp,
-            )
-          : response,
-      ),
+      data: shallowRef<T | undefined>(transformedResponse as T | undefined),
       pending: shallowRef(false),
-      error: shallowRef(null),
-      status: shallowRef('success'),
+      error: shallowRef<FetchError<any> | undefined>(undefined),
+      status: shallowRef<'idle' | 'pending' | 'success' | 'error'>('success'),
+      // refresh: async () => {},
+      // execute: async () => {},
+      // clear: () => {},
     };
   }
   private async executeFetch<T>(
@@ -262,14 +265,17 @@ export class VUseFetch {
     ) {
       try {
         const response = await $fetch<T>(url, fetchOptions as any);
-        return this.wrapFetchResponse(response, nuxtApp);
+        return this.wrapFetchResponse(response, nuxtApp) as AsyncData<
+          T | undefined,
+          FetchError<any> | undefined
+        >;
       } catch (error) {
         return {
           data: shallowRef(null),
           pending: shallowRef(false),
           error: shallowRef(error),
           status: shallowRef('error'),
-        };
+        } as AsyncData<T | undefined, FetchError<any> | undefined>;
       }
     } else {
       return useFetch<T>(url, fetchOptions as any);
