@@ -89,6 +89,49 @@ const fulfilledResults = results.filter(
 ) as PromiseFulfilledResult<any>[];
 ```
 
+## Params
+
+### `CreateFetchOptions`
+
+CreateFetchOptions will affect all operation under an instance.
+
+| conf | type | default | desc |
+| --- | --- | --- | --- |
+| `baseURL` | `string` | base host url, prefer runtimeConfigKey. |  |
+| `runtimeConfigKey` | `string` | - | load host url in runtimeConfig.public<'key'>, default value is VITE_REQUEST_URL, can be overrided. |
+| `authenticationScheme` | `string` | `''` | e.g. authenticationScheme: 'Bearer' |
+| `headers` | `Record<string, string>` | `{}` | custom http headers. |
+| `transform` | `FetchTransform` | `defaultTransform` | set transform and interceptor |
+| `arrayFormatFormData` | `'brackets' \| 'comma' \| 'indices' \| 'repeat' \| undefined` | `'brackets'` | format formData using qs.stringify |
+| `arrayFormatParamsStringify` | `'brackets' \| 'comma' \| 'indices' \| 'repeat' \| undefined` | `'brackets'` | format params using qs.stringify |
+| `requestOptions` | `RequestOptions` | `RequestOptions` | Check "RequestOptions" section below. |
+
+---
+
+### `RequestOptions`
+
+RequestOptions will affect all operation under an instance as default. Can be overrided at each operation.
+
+| conf | type | default | desc |
+| --- | --- | --- | --- |
+| `headers` | `Record<string, string>` | `{}` | custom http headers. prority higher than CreateFetchOptions.headers. |
+| `params` | `Record<string, any>` | `{}` | http params. |
+| `data` | `any` | - | http body data. |
+| `apiUrl` | `string` | `''` | api path. if using absolute url(startswith https), will ignore baseURL. |
+| `isJoinPrefix` | `boolean` | `true` | join urlPrefix after apiUrl. |
+| `urlPrefix` | `string` | `''` | ${baseURL}${apiUrl}${urlPrefix}${url} |
+| `isTransformResponse` | `boolean` | `true` | extract data from response. |
+| `joinParamsToUrl` | `boolean` | `false` | join params and data to url path. |
+| `formatDate` | `boolean` | `true` | formate moment.js to string, trim value. |
+| `joinTime` | `boolean` | `true` | append timestamp to final req url, will NOT affect cache key of useAsyncData |
+| `withToken` | `boolean` | `true` | append token to headers. |
+| `retry` | `{ count: number; delay: number } \| false` | `{ count: 3, delay: 1000 }` | retry options. |
+| `timeout` | `number` | `5000` | timeout in miliseconds. |
+| `alwaysUseFetch` | `boolean` | `false` | using $fetch(ofetch) outside ssr hydrating |
+| `hashParamsToCache` | `boolean` | `true` | when enabled, request with same params will use cache. when disabled, all requests with same url even different params still use same cache. |
+| `useNuxtData` | `boolean` | `true` | default value is true to suppress unnecessary requests. if useNuxtDataAllMethod, set this to false when modifying remote data. (prefer set at each request call passthrough, otherwise may causes hydration mismatch) |
+| `useNuxtDataAllMethod` | `boolean` | `false` | default only using cache when GET. warning: may cause fatal result if operation not idempotence. |
+
 ## Summary
 
 本仓库使用 [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) (Vue 3) 和 [TDesign Vue Next](https://tdesign.tencent.com/vue-next) 组件库。
