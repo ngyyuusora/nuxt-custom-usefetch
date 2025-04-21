@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
   const colorMode = useColorMode();
+  const theme = useThemeStore();
 
   onMounted(() => {
     watchEffect(() => {
@@ -15,5 +16,6 @@
         document.documentElement.removeAttribute('theme-mode');
       }
     });
+    theme.setTheme('default');
   });
 </script>
