@@ -159,7 +159,7 @@ export function createFetch(opt?: Partial<CreateFetchOptions>): VUseFetch {
 export const requestPublic = createFetch({
   requestOptions: {
     isTransformResponse: false,
-    urlPrefix: '/public/v1',
+    urlPrefix: '/api/public',
   },
 });
 // #endregion instances of request
