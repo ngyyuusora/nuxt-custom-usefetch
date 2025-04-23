@@ -265,18 +265,25 @@ export class VUseFetch {
     if (
       import.meta.client &&
       !nuxtApp.isHydrating &&
-      (!instance || instance?.isMounted)
+      (!instance ||
+        instance?.isMounted ||
+        requestOptions.useNuxtDataAfterMounted)
     ) {
       const isUseNuxtData =
         fetchOptions.key &&
         requestOptions.useNuxtData &&
         (requestOptions.useNuxtDataAllMethod ||
           fetchOptions.method?.toString().toUpperCase() === 'GET');
-      if (isUseNuxtData) {
+      if (requestOptions.clearNuxtData) {
+        clearNuxtData(fetchOptions.key as string);
+      } else if (isUseNuxtData) {
         const cache = useNuxtData(fetchOptions.key as string);
         if (cache.data.value) return cache;
       }
-      if (requestOptions.alwaysUseFetch) {
+      if (
+        requestOptions.alwaysUseFetch ||
+        requestOptions.useNuxtDataAfterMounted
+      ) {
         return useFetch<T>(url, fetchOptions as any);
       }
       try {

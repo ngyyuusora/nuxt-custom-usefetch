@@ -28,7 +28,9 @@ export interface RequestOptions {
   alwaysUseFetch?: boolean;
   hashParamsToCache?: boolean;
   useNuxtData?: boolean;
+  useNuxtDataAfterMounted?: boolean;
   useNuxtDataAllMethod?: boolean;
+  clearNuxtData?: boolean;
 }
 // #endregion RequestOptions
 // #region ApiResponse Custom response result

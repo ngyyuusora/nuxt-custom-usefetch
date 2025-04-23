@@ -148,9 +148,13 @@ export function createFetch(opt?: Partial<CreateFetchOptions>): VUseFetch {
       // default value is true to suppress unnecessary requests. if useNuxtDataAllMethod, set this to false when modifying remote data.
       // (prefer set at each request call passthrough, otherwise may causes hydration mismatch)
       useNuxtData: true,
+      // extend caching even csr&mounted, will FORCE alwaysUseFetch(trigger caching because ofetch won't cache)
+      useNuxtDataAfterMounted: false,
       // default only using cache when GET
       // warning: may cause fatal result if operation not idempotence.
       useNuxtDataAllMethod: false,
+      // set at each request call passthrough, will NOT use cache also clear cached data.
+      clearNuxtData: false,
     },
     headers: {
       'Content-Type': ContentTypeEnum.JSON,
