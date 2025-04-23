@@ -130,7 +130,9 @@ RequestOptions will affect all operation under an instance as default. Can be ov
 | `alwaysUseFetch` | `boolean` | `false` | using $fetch(ofetch) outside ssr hydrating |
 | `hashParamsToCache` | `boolean` | `true` | when enabled, request with same params will use cache. when disabled, all requests with same url even different params still use same cache. |
 | `useNuxtData` | `boolean` | `true` | default value is true to suppress unnecessary requests. if useNuxtDataAllMethod, set this to false when modifying remote data. (prefer set at each request call passthrough, otherwise may causes hydration mismatch) |
+| `useNuxtDataAfterMounted` | `boolean` | `false` | extend caching even csr&mounted, will FORCE alwaysUseFetch(trigger caching because ofetch won't cache) |
 | `useNuxtDataAllMethod` | `boolean` | `false` | default only using cache when GET. warning: may cause fatal result if operation not idempotence. |
+| `clearNuxtData` | `boolean` | `false` | set at each request call passthrough, will NOT use cache also clear cached data. |
 
 ## Summary
 
