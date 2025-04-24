@@ -48,10 +48,12 @@
   const time = ref<number>();
   const showTime = ref<boolean>(false);
   const reqConfig = ref<RequestOptions>({
-    alwaysUseFetch: true,
+    alwaysUseFetch: false,
     hashParamsToCache: false,
     useNuxtData: true,
+    useNuxtDataAfterMounted: true,
     useNuxtDataAllMethod: false,
+    clearNuxtData: false,
   });
   const reqConfigControl = ref<Array<keyof RequestOptions>>(
     Object.keys(reqConfig.value) as Array<keyof RequestOptions>,
