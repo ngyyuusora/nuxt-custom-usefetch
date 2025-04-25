@@ -278,7 +278,8 @@ export class VUseFetch {
         clearNuxtData(fetchOptions.key as string);
       } else if (isUseNuxtData) {
         const cache = useNuxtData(fetchOptions.key as string);
-        if (cache.data.value) return cache;
+        if (cache.data.value)
+          return cache as AsyncData<T | undefined, FetchError<any> | undefined>;
       }
       if (
         requestOptions.alwaysUseFetch ||
